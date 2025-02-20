@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
-import { Users } from './users.interface';
+import { User } from '../../models/user.interface';
 
 export interface UsersState {
-  users: Users[];
+  users: User[];
 }
 
 export function createInitialState(): UsersState {
   return {
     users: [
-      {id: 1, name: "Bogdan Bogdanovic", active: true},
-      {id: 2, name: "Nikola Jokic", active: true},
-      {id: 3, name: "Dejan Bodiroga", active: false},
-      {id: 4, name: "Filip Petrusev", active: true},
+      {id: 1, name: "Bogdanovic", active: true},
+      {id: 2, name: "Jokic", active: true},
+      {id: 3, name: "Bodiroga", active: false},
+      {id: 4, name: "Petrusev", active: true},
     ],
   };
 }

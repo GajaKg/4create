@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Users } from 'src/app/users/store/users/users.interface';
+import { User } from 'src/app/users/models/user.interface';
 import { UsersQuery } from 'src/app/users/store/users/users.query';
 
 @Component({
@@ -9,12 +9,15 @@ import { UsersQuery } from 'src/app/users/store/users/users.query';
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent implements OnInit {
-  users$!: Observable<Users[]>;
+  users$!: Observable<User[]>;
 
   constructor(private usersQuery: UsersQuery) {}
 
   ngOnInit() {
     this.users$ = this.usersQuery.getUsers$;
-    // this.users$.subscribe(n => console.log(n));
+  }
+
+  toggleUser(id: number) {
+
   }
 }

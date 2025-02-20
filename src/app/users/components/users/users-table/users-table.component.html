@@ -4,13 +4,19 @@
       <th>ID</th>
       <th>Name</th>
       <th>Is Active</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let user of users" >
       <td>{{ user.id }}</td>
       <td>{{ user.name }}</td>
-      <td>{{ user.active }}</td>
+      <td>
+        {{ user.active }}
+      </td>
+      <td>
+        <div (click)="toggleUser(user.id)" class="app-button">Toggle Active</div>
+      </td>
     </tr>
   </tbody>
 </table>

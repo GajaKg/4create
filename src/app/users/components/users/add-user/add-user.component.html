@@ -1,0 +1,15 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" formControlName="name" />
+    <span *ngIf="userForm.get('name')?.hasError('usernameTaken')" class="error">
+      This username is already taken.
+    </span>
+  </div>
+  <div>
+    <label for="active">Active:</label>
+    <input type="checkbox" formControlName="active" />
+  </div>
+  <h2>{{userForm.valid ? "valid" : "invalid"}}</h2>
+  <button type="submit" [disabled]="!userForm.valid">Submit</button>
+</form>
