@@ -4,11 +4,11 @@ import { Users } from 'src/app/users/store/users/users.interface';
 import { UsersQuery } from 'src/app/users/store/users/users.query';
 
 @Component({
-  selector: 'app-user-table',
-  templateUrl: './user-table.component.html',
-  styleUrls: ['./user-table.component.css']
+  selector: 'app-users-table',
+  templateUrl: './users-table.component.html',
+  styleUrls: ['./users-table.component.css']
 })
-export class UserTableComponent implements OnInit {
+export class UsersTableComponent implements OnInit {
   users$!: Observable<Users[]>;
 
   constructor(private usersQuery: UsersQuery) {}

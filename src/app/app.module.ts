@@ -8,12 +8,12 @@ import { AppComponent } from './app.component';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 // import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
-import { UserTableComponent } from './users/components/user-table/user-table.component';
+import { UsersTableComponent } from './users/components/users-table/users-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserTableComponent,
+    UsersTableComponent,
   ],
   imports: [
     BrowserModule,
