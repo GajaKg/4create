@@ -1,0 +1,16 @@
+<table *ngIf="users$ | async as users;">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Is Active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users" >
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.active }}</td>
+    </tr>
+  </tbody>
+</table>
