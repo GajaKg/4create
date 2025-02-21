@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/users/models/user.interface';
 import { UsersQuery } from 'src/app/users/store/users/users.query';
+import { UserService } from 'src/app/users/store/users/users.service';
 import { UsersStore } from 'src/app/users/store/users/users.store';
 import { UniqueNameValidator } from 'src/app/users/validators/username.validator';
 @Component({
@@ -11,7 +12,7 @@ import { UniqueNameValidator } from 'src/app/users/validators/username.validator
 })
 export class AddUserComponent implements OnInit {
   private uniqueNameValidator = inject(UniqueNameValidator);
-  private usersStore = inject(UsersStore)
+  private userService = inject(UserService)
   private usersQuery = inject(UsersQuery)
   private fb = inject(FormBuilder)
   protected userForm!: FormGroup;
@@ -39,7 +40,8 @@ export class AddUserComponent implements OnInit {
         name: this.userForm.value.name,
         active: this.userForm.value.active
       }
-      this.usersStore.add(newUser);
+
+      this.userService.addNewUser(newUser)
       this.userForm.reset()
     }
   }

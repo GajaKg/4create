@@ -1,8 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/users/models/user.interface';
-import { UsersQuery } from 'src/app/users/store/users/users.query';
-import { UsersStore } from 'src/app/users/store/users/users.store';
+import { UserService } from 'src/app/users/store/users/users.service';
 
 @Component({
   selector: 'app-users-table',
@@ -10,16 +8,12 @@ import { UsersStore } from 'src/app/users/store/users/users.store';
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent implements OnInit {
-  private usersStore = inject(UsersStore);
-  private usersQuery = inject(UsersQuery);
+  private userService = inject(UserService);
+  @Input() users!: User[];
 
-  users!: User[];
-
-  ngOnInit() {
-    this.usersQuery.getUsers$.subscribe((users: User[]) => this.users = users)
-  }
+  ngOnInit() {}
 
   toggleUser(user: User) {
-    this.usersStore.update(user.id, { active: !user.active})
+    this.userService.updateUser(user.id, { active: !user.active})
   }
 }
