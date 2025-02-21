@@ -4,7 +4,7 @@ import { UsersState, UsersStore } from './users.store';
 
 @Injectable({ providedIn: 'root' })
 export class UsersQuery extends Query<UsersState> {
-  getUsers$ = this.select('users');
+  getUsers$ = this.select('entities');
 
   constructor(protected override store: UsersStore) {
     super(store);

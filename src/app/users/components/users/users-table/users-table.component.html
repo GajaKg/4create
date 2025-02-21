@@ -1,4 +1,4 @@
-<table *ngIf="users$ | async as users;">
+<table *ngIf="users">
   <thead>
     <tr>
       <th>ID</th>
@@ -8,14 +8,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users" >
-      <td>{{ user.id }}</td>
-      <td>{{ user.name }}</td>
+    <tr *ngFor="let user of users | keyvalue">
+      <td>{{ user.value.id }}</td>
+      <td>{{ user.value.name }}</td>
       <td>
-        {{ user.active }}
+        {{ user.value.active }}
       </td>
       <td>
-        <div (click)="toggleUser(user.id)" class="app-button">Toggle Active</div>
+        <div (click)="toggleUser(user.value)" class="app-button">
+          Toggle Active
+        </div>
       </td>
     </tr>
   </tbody>

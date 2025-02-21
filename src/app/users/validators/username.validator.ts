@@ -1,4 +1,4 @@
-import { AbstractControl, AsyncValidator, AsyncValidatorFn, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, AsyncValidatorFn, ValidationErrors } from "@angular/forms";
 import { UsersQuery } from "../store/users/users.query";
 import { inject, Injectable } from "@angular/core";
 import {catchError, delay, map, Observable, of, take} from "rxjs";
@@ -12,7 +12,10 @@ export class UniqueNameValidator {
   validate(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
 
-      this.usersQuery.getUsers$.subscribe(res => this.users = res);
+      this.usersQuery.getUsers$.pipe(
+        map(users => users ? Object.keys(users).map(key => users[key]) : [])
+      )
+      .subscribe(users => this.users = users);
 
       return of(this.users).pipe(
         delay(2000),
