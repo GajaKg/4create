@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/users/models/user.interface';
+import { UsersStore } from 'src/app/users/store/users/users.store';
 import { UniqueNameValidator } from 'src/app/users/validators/username.validator';
 @Component({
   selector: 'app-add-user',
@@ -7,10 +9,10 @@ import { UniqueNameValidator } from 'src/app/users/validators/username.validator
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-  protected userForm!: FormGroup;
   private uniqueNameValidator = inject(UniqueNameValidator);
-
-  constructor(private fb: FormBuilder) { }
+  private usersStore = inject(UsersStore)
+  private fb = inject(FormBuilder)
+  protected userForm!: FormGroup;
 
   ngOnInit() {
     this.createForm()
@@ -28,7 +30,12 @@ export class AddUserComponent implements OnInit {
 
   onSubmit() {
     if (this.userForm.valid) {
-      console.log("onSubmit", this.userForm.value);
+      const newUser: User = {
+        id: 5,
+        name: this.userForm.value.name,
+        active: this.userForm.value.active
+      }
+      this.usersStore.add(newUser)
     }
   }
 }
