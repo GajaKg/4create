@@ -1,8 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { count, filter, map, Observable, OperatorFunction, scan } from 'rxjs';
+import { count, filter, map, Observable, OperatorFunction, scan, tap } from 'rxjs';
 import { User } from '../../models/user.interface';
 import { UsersQuery } from '../../store/users/users.query';
 import { HashMap } from '@datorama/akita';
+import { UserService } from '../../store/users/users.service';
 
 @Component({
   selector: 'app-users',
@@ -10,19 +11,19 @@ import { HashMap } from '@datorama/akita';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  private usersQuery = inject(UsersQuery);
+  private userService = inject(UserService);
   protected newUserIsActive: boolean = false;
   protected newUserToggleModal: boolean = false;
+  protected listUsers: User[] = [];
 
   ngOnInit(): void {
-    this.usersQuery.getUsers$.pipe(
-      map((users: User[]) => {
-        const valuesArray = Object.values(users ?? {});
-        const foundInactive = valuesArray.find((user: any) => user.active === false);
-        return foundInactive ? false : valuesArray.length < 5 ? true : false;
+    this.userService.fetchUsers().pipe(
+      tap((users: User[]) => {
+        const foundInactive = users.find((user: any) => user.active === false);
+        this.newUserIsActive = foundInactive ? false : users.length < 5 ? true : false;
       })
-    ).subscribe((res: boolean) => {
-      this.newUserIsActive = res;
+    ).subscribe((users: User[]) => {
+      this.listUsers = users;
     })
   }
 

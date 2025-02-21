@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
 import { UsersState, UsersStore } from './users.store';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { User } from '../../models/user.interface';
 
 @Injectable({ providedIn: 'root' })
