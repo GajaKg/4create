@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/users/models/user.interface';
 import { UsersQuery } from 'src/app/users/store/users/users.query';
 import { UserService } from 'src/app/users/store/users/users.service';
-import { UsersStore } from 'src/app/users/store/users/users.store';
 import { UniqueNameValidator } from 'src/app/users/validators/username.validator';
 @Component({
   selector: 'app-add-user',

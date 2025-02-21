@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { count, filter, map, Observable, OperatorFunction, scan, tap } from 'rxjs';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
 import { User } from '../../models/user.interface';
-import { UsersQuery } from '../../store/users/users.query';
-import { HashMap } from '@datorama/akita';
 import { UserService } from '../../store/users/users.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-users',
@@ -11,14 +10,17 @@ import { UserService } from '../../store/users/users.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  private userService = inject(UserService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly userService = inject(UserService);
   protected newUserIsActive: boolean = false;
   protected newUserToggleModal: boolean = false;
   protected listUsers: User[] = [];
 
   ngOnInit(): void {
     this.userService.fetchUsers().pipe(
+      takeUntilDestroyed(this.destroyRef),
       tap((users: User[]) => {
+        // check if there is inactive user to disable add new user button
         const foundInactive = users.find((user: any) => user.active === false);
         this.newUserIsActive = foundInactive ? false : users.length < 5 ? true : false;
       })

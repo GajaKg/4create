@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
 import { UsersState, UsersStore } from './users.store';
-import { map, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { User } from '../../models/user.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -11,7 +11,7 @@ export class UsersQuery extends QueryEntity<UsersState> {
     super(store);
   }
 
-  get getUsers$() {
+  get getUsers$(): Observable<User[]> {
     return this.selectAll().pipe(
       map((users) => {
         return Object.values(users).map(user => user);

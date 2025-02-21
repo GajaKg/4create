@@ -14,7 +14,8 @@
   bottom: 0;
   left: 0;
   display: flex;
-  align-items: center;
+  padding-top: 50px;
+  align-items: flex-start;
   justify-content: center;
   background: rgba(0, 0, 0, 0.5);
 }
@@ -23,7 +24,7 @@
 .modal__content {
   border-radius: 4px;
   position: relative;
-  width: 500px;
+  width: 350px;
   max-width: 90%;
   padding:20px;
   background: #fff;
@@ -42,4 +43,10 @@
   align-items: center;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.error {
+  display: inline-block;
+  color: red;
+  font-size: 10px;
 }

@@ -1,25 +1,31 @@
 import { AbstractControl, AsyncValidatorFn, ValidationErrors } from "@angular/forms";
-import { UsersQuery } from "../store/users/users.query";
-import { inject, Injectable } from "@angular/core";
-import {catchError, delay, map, Observable, of, take} from "rxjs";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef, inject, Injectable } from "@angular/core";
+import { catchError, delay, map, Observable, of } from "rxjs";
+
 import { User } from "../models/user.interface";
+import { UserService } from "../store/users/users.service";
 
 @Injectable({ providedIn: 'root' })
 export class UniqueNameValidator {
-  private usersQuery = inject(UsersQuery);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly userService = inject(UserService)
   users!: User[];
 
   validate(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
 
-      this.usersQuery.getUsers$.subscribe(users => this.users = users);
+      this.userService.fetchUsers().pipe(
+        takeUntilDestroyed(this.destroyRef),
+      ).subscribe(users => this.users = users);
 
       return of(this.users).pipe(
         delay(2000),
         map((users: User[]) => {
           let isValid = true;
+          const inputValue = control.value.trim().toLowerCase();
           users.forEach((user: User) => {
-            if(user.name.toLowerCase() === control.value.toLowerCase()) {
+            if(user.name.toLowerCase().trim() === inputValue) {
               isValid = false
             }
           })

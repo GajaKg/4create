@@ -1,7 +1,6 @@
-.app-button {
-  display: inline-block;
-  padding: 4px 10px;
-  border: 1px solid red;
-  border-radius: 4px;
-  cursor: pointer;
+
+.main {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
 }
