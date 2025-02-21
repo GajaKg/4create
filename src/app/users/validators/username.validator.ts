@@ -12,14 +12,11 @@ export class UniqueNameValidator {
   validate(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
 
-      this.usersQuery.getUsers$.pipe(
-        map(users => users ? Object.keys(users).map(key => users[key]) : [])
-      )
-      .subscribe(users => this.users = users);
+      this.usersQuery.getUsers$.subscribe(users => this.users = users);
 
       return of(this.users).pipe(
         delay(2000),
-        map((users:any) => {
+        map((users: User[]) => {
           let isValid = true;
           users.forEach((user: User) => {
             if(user.name.toLowerCase() === control.value.toLowerCase()) {

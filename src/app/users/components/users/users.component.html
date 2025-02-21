@@ -1,7 +1,7 @@
 <div>
-  <div *ngIf="newUserIsActive" (click)="openModal()" class="app-button">
+  <button [disabled]="!newUserIsActive" (click)="openModal()" class="app-button">
     New User
-  </div>
-  <app-add-user></app-add-user>
+  </button>
+  <app-add-user *ngIf="newUserToggleModal" (closeModal)="newUserToggleModal = false"></app-add-user>
   <app-users-table></app-users-table>
 </div>

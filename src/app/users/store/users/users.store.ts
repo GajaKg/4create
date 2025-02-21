@@ -17,7 +17,7 @@ export function createInitialState(): UsersState {
 }
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'session' })
+@StoreConfig({ name: 'users' })
 export class UsersStore extends EntityStore<UsersState> {
   constructor() {
     super(createInitialState());

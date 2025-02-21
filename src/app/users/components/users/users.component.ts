@@ -10,17 +10,15 @@ import { HashMap } from '@datorama/akita';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  usersQuery = inject(UsersQuery);
-
-  newUserIsActive: boolean = false;
+  private usersQuery = inject(UsersQuery);
+  protected newUserIsActive: boolean = false;
+  protected newUserToggleModal: boolean = false;
 
   ngOnInit(): void {
     this.usersQuery.getUsers$.pipe(
-      // map((users: { [key: number]: User }[]) => {
-      map((users: HashMap<User> | undefined) => {
+      map((users: User[]) => {
         const valuesArray = Object.values(users ?? {});
-        let foundInactive = valuesArray.find((user: any) => user.active === false);
-
+        const foundInactive = valuesArray.find((user: any) => user.active === false);
         return foundInactive ? false : valuesArray.length < 5 ? true : false;
       })
     ).subscribe((res: boolean) => {
@@ -29,6 +27,6 @@ export class UsersComponent implements OnInit {
   }
 
   openModal() {
-
+    this.newUserToggleModal = true;
   }
 }

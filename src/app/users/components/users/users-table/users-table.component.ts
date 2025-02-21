@@ -10,18 +10,16 @@ import { UsersStore } from 'src/app/users/store/users/users.store';
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent implements OnInit {
-  usersStore = inject(UsersStore)
-  usersQuery = inject(UsersQuery)
+  private usersStore = inject(UsersStore);
+  private usersQuery = inject(UsersQuery);
 
-  users!: { [key: number]: User };
+  users!: User[];
 
   ngOnInit() {
-    this.usersQuery.getUsers$.subscribe((res: any) => this.users = res)
+    this.usersQuery.getUsers$.subscribe((users: User[]) => this.users = users)
   }
 
   toggleUser(user: User) {
-    console.log(user, !user.active)
-    // this.usersStore.add({id: 5, name: "ADS ASd AS a", active: true},)
     this.usersStore.update(user.id, { active: !user.active})
   }
 }

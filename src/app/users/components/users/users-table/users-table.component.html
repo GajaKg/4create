@@ -8,16 +8,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users | keyvalue">
-      <td>{{ user.value.id }}</td>
-      <td>{{ user.value.name }}</td>
+    <tr *ngFor="let user of users; let  i = index">
+      <td>{{ i+1 }}</td>
+      <td>{{ user.name }}</td>
       <td>
-        {{ user.value.active }}
+        {{ user.active }}
       </td>
       <td>
-        <div (click)="toggleUser(user.value)" class="app-button">
+        <button (click)="toggleUser(user)" class="app-button">
           Toggle Active
-        </div>
+        </button>
       </td>
     </tr>
   </tbody>
