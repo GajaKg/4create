@@ -1,5 +1,7 @@
 <div>
-  <div (click)="openModal()" class="app-button">New User</div>
+  <div *ngIf="newUserIsActive" (click)="openModal()" class="app-button">
+    New User
+  </div>
   <app-add-user></app-add-user>
   <app-users-table></app-users-table>
 </div>

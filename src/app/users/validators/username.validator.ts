@@ -16,7 +16,6 @@ export class UniqueNameValidator {
 
       return of(this.users).pipe(
         delay(2000),
-        take(1),
         map((users:any) => {
           let isValid = true;
           users.forEach((user: User) => {

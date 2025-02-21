@@ -10,6 +10,5 @@
     <label for="active">Active:</label>
     <input type="checkbox" formControlName="active" />
   </div>
-  <h2>{{userForm.valid ? "valid" : "invalid"}}</h2>
   <button type="submit" [disabled]="!userForm.valid">Submit</button>
 </form>
