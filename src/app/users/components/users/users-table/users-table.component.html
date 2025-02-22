@@ -1,23 +1,21 @@
 <table *ngIf="users">
   <thead>
     <tr>
-      <th>ID</th>
+      <th>#</th>
       <th>Name</th>
       <th>Is Active</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users; let  i = index">
-      <td>{{ i+1 }}</td>
+    <tr *ngFor="let user of users; let i = index">
+      <td>{{ i + 1 }}.</td>
       <td>{{ user.name }}</td>
-      <td>
-        {{ user.active }}
+      <td [ngClass]="user.active ? 'active' : 'inactive'">
+          {{ user.active }}
       </td>
       <td>
-        <button (click)="toggleUser(user)" class="app-button">
-          Toggle Active
-        </button>
+        <button (click)="toggleUser(user)">Toggle Active</button>
       </td>
     </tr>
   </tbody>

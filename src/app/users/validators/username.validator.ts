@@ -10,20 +10,20 @@ import { UserService } from "../store/users/users.service";
 export class UniqueNameValidator {
   private readonly destroyRef = inject(DestroyRef);
   private readonly userService = inject(UserService)
-  users!: User[];
+  private users!: User[];
 
   validate(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
 
       this.userService.fetchUsers().pipe(
         takeUntilDestroyed(this.destroyRef),
-      ).subscribe(users => this.users = users);
+      ).subscribe((users: User[]) => this.users = users);
 
       return of(this.users).pipe(
         delay(2000),
         map((users: User[]) => {
           let isValid = true;
-          const inputValue = control.value.trim().toLowerCase();
+          const inputValue: string = control.value.trim().toLowerCase();
           users.forEach((user: User) => {
             if(user.name.toLowerCase().trim() === inputValue) {
               isValid = false

@@ -7,14 +7,14 @@ import { UniqueNameValidator } from 'src/app/users/validators/username.validator
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
   private uniqueNameValidator = inject(UniqueNameValidator);
   private userService = inject(UserService)
   private usersQuery = inject(UsersQuery)
   private fb = inject(FormBuilder)
-  protected userForm!: FormGroup;
+  userForm!: FormGroup;
   @Output() closeModal = new EventEmitter()
 
   ngOnInit() {
@@ -42,6 +42,7 @@ export class AddUserComponent implements OnInit {
 
       this.userService.addNewUser(newUser)
       this.userForm.reset()
+      this.closeModal.emit()
     }
   }
 }

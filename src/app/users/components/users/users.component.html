@@ -1,8 +1,7 @@
 <div>
   <button
-    [disabled]="!newUserIsActive"
-    (click)="openModal()"
-    class="app-button"
+    [disabled]="newUserIsInactive"
+    (click)="newUserToggleModal = true"
   >
     New User
   </button>
